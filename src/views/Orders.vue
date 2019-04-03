@@ -1,7 +1,6 @@
 <template>
-  <div class="home">
-
-    <router-view />
+  <div>
+    <h1>Orders</h1>
   </div>
 </template>
 
@@ -9,5 +8,5 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 </style>

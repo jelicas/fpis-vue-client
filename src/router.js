@@ -1,26 +1,53 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from '@/store/store';
 import Home from "./views/Home.vue";
+import Login from "./views/Login.vue";
+import Suppliers from "./views/Suppliers.vue";
+import Orders from "./views/Orders.vue";
+import Cards from "./components/Cards.vue";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
+      children: [{
+          path: "",
+          name: "home",
+          component: Cards,
+        }, {
+          path: "/suppliers",
+          name: "suppliers",
+          component: Suppliers,
+        },
+        {
+          path: "/orders",
+          name: "orders",
+          component: Orders,
+        }
+      ]
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      path: "/login",
+      name: "login",
+      component: Login
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'login' && store.getters.getUser == null) {
+    console.log(store.getters.getUser);
+    console.log("LOGIN ROUTEES");
+    next('/login');
+  } else {
+    next();
+  }
+});
+
+export default router;
