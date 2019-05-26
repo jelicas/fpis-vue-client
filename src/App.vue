@@ -1,17 +1,23 @@
 <template>
   <div id="app">
     <navbar v-show="userSet"></navbar>
+    <modal v-show="modalVisible" />
     <router-view />
   </div>
 </template>
 
 <script>
 import navbar from "@/components/common/Navbar.vue";
+import modal from "@/components/modals/Modal.vue";
+import { mapState } from "vuex";
+
 export default {
   components: {
-    navbar
+    navbar,
+    modal
   },
   computed: {
+    ...mapState("modal", ["modalVisible"]),
     userSet() {
       return this.$store.getters.getUser !== null;
     }

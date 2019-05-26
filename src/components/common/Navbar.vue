@@ -31,18 +31,18 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <a
-              class=""
+              class="button"
               @click="handleUseCaseClick('Suppliers')"
             > UseCase1 </a>
           </div>
-          <div class="navbar-item ">
+          <div class="navbar-item">
             <a
-              class=""
+              class="button"
               @click="handleUseCaseClick('Orders')"
             > UseCase2 </a>
           </div>
           <div class="navbar-item">
-            <a class="">More</a>
+            <a class="button">More</a>
           </div>
           <div class="navbar-item">
             <a

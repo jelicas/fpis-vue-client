@@ -43,7 +43,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.name !== 'login' && store.getters.getUser == null) {
     console.log(store.getters.getUser);
-    console.log("LOGIN ROUTEES");
+    console.log("LOGIN ROUTES");
     next('/login');
   } else {
     next();

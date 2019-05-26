@@ -13,6 +13,8 @@
     "vue": "^2.6.6",
     "vue-apollo": "^3.0.0-beta.28",
     "vue-router": "^3.0.1",
+    "vue-spinner": "^1.0.3",
+    "vue-tables-2": "^1.4.70",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

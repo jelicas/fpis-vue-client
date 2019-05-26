@@ -3,31 +3,22 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store/store";
 
-import {
-  ApolloClient,
-  HttpLink,
-  InMemoryCache
-} from 'apollo-boost';
-import VueApollo from 'vue-apollo';
+import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
+import VueApollo from "vue-apollo";
 
+import { ClientTable } from "vue-tables-2";
 
+Vue.use(ClientTable);
 Vue.use(VueApollo);
 
 //Setup ApolloClient
 export const defaultClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://localhost:5000/graphql'
+    uri: "http://localhost:5000/graphql"
   }),
   cache: new InMemoryCache(),
-  connectToDevTools: true,
+  connectToDevTools: true
 });
-
-const apolloProvider = new VueApollo({
-  defaultClient,
-  defaultOptions: {
-    $loadingKey: 'loading'
-  }
-})
 
 Vue.config.productionTip = false;
 
