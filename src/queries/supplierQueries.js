@@ -40,6 +40,21 @@ export const GET_SUPPLIER = gql`
   }
 `;
 
+export const FILTER_SUPPLIERS = gql`
+  query($filter: SupplierFilterParameter) {
+    filterSuppliers(filter: $filter) {
+      taxIdNum
+      name
+      address
+      city {
+        areaCode
+        name
+      }
+      regNum
+    }
+  }
+`;
+
 // Supplier mutations
 export const ADD_SUPPLIER = gql`
   mutation(

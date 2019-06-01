@@ -23,7 +23,6 @@ export default {
     },
     editSupplier(state, payload) {
       let editedSuppliers = state.suppliers.map(e => {
-        //pitaj sto ne moze short if
         if (e.taxIdNum === payload.taxIdNum) {
           let editedSupplier = {
             taxIdNum: payload.taxIdNum,

@@ -5,6 +5,7 @@
       class="button is-primary"
       @click="setModal(emptySupplier, 'NewSupplierContent')"
     >Kreiraj dobavljača</button>
+    <dropdown-menu></dropdown-menu>
     <v-client-table
       :data="suppliers"
       :columns="columns"
@@ -31,7 +32,12 @@
 <script>
 import { mapMutations, mapState } from "vuex";
 
+import DropdownMenu from "@/components/common/DropdownMenu";
+
 export default {
+  components: {
+    DropdownMenu
+  },
   computed: {
     ...mapState("supplier", ["suppliers"])
   },
