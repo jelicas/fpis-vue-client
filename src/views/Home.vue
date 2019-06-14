@@ -10,4 +10,7 @@ export default {};
 </script>
 
 <style>
+.home {
+  height: calc(100% - 82px);
+}
 </style>

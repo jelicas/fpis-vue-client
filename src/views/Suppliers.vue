@@ -78,7 +78,7 @@ export default {
           page: "Strana:",
           noResults: "Nema rezultata",
           filterBy: "Filter by {column}",
-          loading: "Loading...",
+          loading: "Učitavanje...",
           defaultOption: "Izaberite {column}",
           columns: "Kolone"
         },

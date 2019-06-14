@@ -1,5 +1,6 @@
 <template>
   <div class="body-wrapper">
+    <div class="backgr-img"></div>
     <div class="login-wrapper">
       <div class="login">
 
@@ -64,20 +65,20 @@ export default {
   data() {
     return {
       credentials: {
-        username: "",
-        password: ""
-      }
+        username: '',
+        password: '',
+      },
     };
   },
   methods: {
     submitForm() {
-      console.log("LOGIN");
-      this.$store.dispatch("signinUser", {
+      console.log('LOGIN');
+      this.$store.dispatch('signinUser', {
         username: this.credentials.username,
-        password: this.credentials.password
+        password: this.credentials.password,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -85,22 +86,33 @@ export default {
 .body-wrapper {
   height: 100%;
   overflow: hidden;
-  background-image: url("../assets/pharmacy4.png");
+  /* background-image: url('../assets/pharmacy4.png'); */
 }
+
+.backgr-img {
+  background-image: url('../assets/pharmacy4.png');
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
 .login-wrapper {
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 2%;
-  margin-bottom: 1%;
+  /* margin-top: 2%; */
+  /* margin-bottom: 1%; */
   overflow: hidden;
+  margin: auto;
 }
 
 .login {
+  margin: auto;
   position: relative;
   width: 850px;
   height: 595px;
-  background-image: url("../assets/cropedPharmacy.png");
+  background-image: url('../assets/cropedPharmacy.png');
   background-size: 851px 640px;
   /* background-size:cover; */
   overflow: hidden;

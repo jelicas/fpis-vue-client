@@ -60,28 +60,28 @@
 export default {
   data() {
     return {
-      showNav: false
+      showNav: false,
     };
   },
   methods: {
     logout() {
-      this.$store.commit("setUser", null);
-      this.$router.push("/login");
+      this.$store.commit('setUser', null);
+      this.$router.push('/login');
     },
     handleUseCaseClick(usecase) {
       switch (usecase) {
-        case "Suppliers":
-          this.$router.push("/suppliers");
+        case 'Suppliers':
+          this.$router.push('/suppliers');
           break;
-        case "Orders":
-          this.$router.push("/orders");
+        case 'Orders':
+          this.$router.push('/orders');
           break;
-        case "Home":
-          this.$router.push("/");
+        case 'Home':
+          this.$router.push('/');
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -89,27 +89,31 @@ export default {
 .navbar {
   padding: 0px !important;
   background-color: #e9f0a6 !important;
+  flex-wrap: wrap;
 }
 
 .container {
   padding: 0px !important;
   margin: 0px !important;
+  min-width: 100%;
+  flex-basis: 100%;
+  padding-right: 1rem !important;
 }
 
 .navbar-item img {
   max-height: 3.5rem !important;
 }
-
+/*
 .navbar-brand {
   padding-top: 0rem;
   padding-bottom: 0rem;
   margin-right: 0rem;
   margin-left: -0.25rem !important;
-}
+} */
 
 /* @media screen and (min-width: 1088px) { */
-.container > .navbar .navbar-menu,
+/* .container > .navbar .navbar-menu,
 .navbar > .container .navbar-menu {
   margin-right: -10.75rem !important;
-}
+} */
 </style>

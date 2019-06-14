@@ -14,23 +14,23 @@
 </template>
 
 <script>
-import card from "@/components/common/Card.vue";
+import card from '@/components/common/Card.vue';
 export default {
   components: {
-    card
+    card,
   },
   methods: {
     handleUseCaseClick(usecase) {
       switch (usecase) {
-        case "Suppliers":
-          this.$router.push("/suppliers");
+        case 'Suppliers':
+          this.$router.push('/suppliers');
           break;
-        case "Orders":
-          this.$router.push("/orders");
+        case 'Orders':
+          this.$router.push('/orders');
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -38,6 +38,6 @@ export default {
 .cards {
   display: flex;
   justify-content: center;
-  padding-top: 5%;
+  padding-top: 10%;
 }
 </style>

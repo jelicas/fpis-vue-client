@@ -5,7 +5,7 @@
       :cities="cities"
     ></supplier-content>
 
-    <div class="footer">
+    <div class="">
       <button
         class="button is-danger"
         @click="close"
@@ -20,28 +20,28 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
-import SupplierContent from "@/components/modals/modal-content/SupplierContent.vue";
-import api from "@/api/api.js";
+import { mapMutations, mapState } from 'vuex';
+import SupplierContent from '@/components/modals/modal-content/SupplierContent.vue';
+import api from '@/api/api.js';
 
 export default {
   components: {
-    supplierContent: SupplierContent
+    supplierContent: SupplierContent,
   },
   data() {
     return {
-      cities: null
+      cities: null,
     };
   },
   computed: {
-    ...mapState("supplier", ["supplier"]),
-    ...mapState("supplier", ["suppliers"])
+    ...mapState('supplier', ['supplier']),
+    ...mapState('supplier', ['suppliers']),
   },
   created() {
     api
       .getAllCities()
       .then(({ data }) => {
-        console.log("HERE");
+        console.log('HERE');
         console.log(data.getCities);
         this.cities = data.getCities;
       })
@@ -50,8 +50,8 @@ export default {
       });
   },
   methods: {
-    ...mapMutations("modal", ["closeModal"]),
-    ...mapMutations("supplier", ["addSupplier"]),
+    ...mapMutations('modal', ['closeModal']),
+    ...mapMutations('supplier', ['addSupplier']),
     createSupplier() {
       console.log(this.supplier);
       const newSupplier = {
@@ -59,7 +59,7 @@ export default {
         regNum: this.supplier.regNum,
         name: this.supplier.name,
         address: this.supplier.address,
-        city: this.supplier.city.areaCode
+        city: this.supplier.city.areaCode,
       };
       api
         .addSupplier(newSupplier)
@@ -73,8 +73,8 @@ export default {
     },
     close() {
       this.closeModal();
-    }
-  }
+    },
+  },
 };
 </script>
 

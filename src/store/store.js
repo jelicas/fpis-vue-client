@@ -1,10 +1,12 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import userModule from './modules/userModule';
-import supplierModule from "./modules/supplierModule";
-import modalModule from "./modules/modalModule";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+import modalModule from './modules/modalModule';
+import orderModule from './modules/orderModule';
+import supplierModule from './modules/supplierModule';
+import userModule from './modules/userModule';
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {},
@@ -14,6 +16,7 @@ export default new Vuex.Store({
   modules: {
     user: userModule,
     supplier: supplierModule,
-    modal: modalModule
-  }
-})
+    modal: modalModule,
+    order: orderModule,
+  },
+});

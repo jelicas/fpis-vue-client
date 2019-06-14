@@ -1,11 +1,18 @@
+import { defaultClient as apolloClient } from '@/main';
 import {
-  GET_ALL_CITIES,
   ADD_SUPPLIER,
-  UPDATE_SUPPLIER,
   DELETE_SUPPLIER,
   FILTER_SUPPLIERS,
+  GET_ALL_CITIES,
+  UPDATE_SUPPLIER,
 } from '@/queries/supplierQueries';
-import { defaultClient as apolloClient } from '@/main';
+
+import {
+  CREATE_ORDER,
+  GET_LAST_REQUISITION,
+  GET_REQUISITION_ITEMS_PER_SUPPLIER,
+  GET_SUPPLIERS_FROM_LAST_REQUISITION,
+} from '../queries/orderQueries';
 
 //vidi da sredis ova ponavljanja gde se prosledjuju samo razliciti nazivi fja i payload da bude jedna dinamicka fja npr.
 const api = {
@@ -33,6 +40,28 @@ const api = {
     return apolloClient.query({
       query: FILTER_SUPPLIERS,
       variables: { filter: payload },
+    });
+  },
+  getSuppliersFromLastRequisition: () => {
+    return apolloClient.query({
+      query: GET_SUPPLIERS_FROM_LAST_REQUISITION,
+    });
+  },
+  getLastRequisition: () => {
+    return apolloClient.query({
+      query: GET_LAST_REQUISITION,
+    });
+  },
+  getRequisitionItemsPerSupplier: payload => {
+    return apolloClient.query({
+      query: GET_REQUISITION_ITEMS_PER_SUPPLIER,
+      variables: payload,
+    });
+  },
+  createOrder: payload => {
+    return apolloClient.mutate({
+      mutation: CREATE_ORDER,
+      variables: payload,
     });
   },
 };
