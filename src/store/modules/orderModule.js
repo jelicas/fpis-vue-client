@@ -1,6 +1,8 @@
+import api from '../../api/api';
+
 export default {
   state: {
-    orders: [{ orderId: 1, supplierName: 'PharmaSwiss', dateCreated: '10.10.2019' }],
+    orders: [{ id: 1, supplierName: 'PharmaSwiss', dateCreated: '10.10.2019' }],
     order: null,
   },
   mutations: {
@@ -21,17 +23,16 @@ export default {
   },
   actions: {
     getAllOrders: ({ commit }) => {
-      // apolloClient
-      //   .query({
-      //     query: GET_ALL_ORDERS,
-      //   })
-      //   .then(({ data }) => {
-      //     console.log(data.getOrders);
-      //     commit('setOrders', data.getOrders);
-      //   })
-      //   .catch(err => {
-      //     console.error(err);
-      //   });
+      console.log('here');
+      api
+        .getAllOrders()
+        .then(({ data }) => {
+          console.log(data.getAllOrders);
+          commit('setOrders', data.getAllOrders);
+        })
+        .catch(err => {
+          console.error(err);
+        });
     },
   },
   getters: {

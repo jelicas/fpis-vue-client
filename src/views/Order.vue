@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{supplier.name}}
+    {{ supplier.name }}
 
     <v-client-table
       :data="reqItems"
@@ -19,8 +19,15 @@
         >Obriši</button>
       </div>
 
-      <div slot="quantity">
-        <input type="number">
+      <div
+        slot="orderedQuantity"
+        slot-scope="props"
+      >
+        <input
+          type="number"
+          v-model="props.row.orderedQuantity"
+          @change="changeInputOrder(props.row)"
+        >
       </div>
     </v-client-table>
     <button
@@ -39,7 +46,7 @@ export default {
     return {
       columns: [
         'itemSerialNumber',
-        'quantity',
+        'orderedQuantity',
         'totalQuantity',
         'product.name',
         'product.supplierPrice',
@@ -47,7 +54,7 @@ export default {
       ],
       options: {
         headings: {
-          itemSerialNumber: 'Redni broj',
+          itemSerialNumber: 'Broj',
           orderedQuantity: 'Potvrđena količina',
           totalQuantity: 'Trebovana količina',
           'product.name': 'Proizvod',
@@ -80,13 +87,17 @@ export default {
       });
     },
     createOrder() {
-      let orderItems = this.reqItems.map(e => ({
-        requisitionId: e.requisitionId,
-        supplierId: this.supplier.taxIdNum,
-        quantity: 25,
-        price: e.product.supplierPrice,
-        itemSerialNumber: e.itemSerialNumber,
-      }));
+      console.log(this.reqItems);
+      let orderItems = this.reqItems.map(e => {
+        let orderedQuantity = parseFloat(e.orderedQuantity);
+        return {
+          requisitionId: e.requisitionId,
+          supplierId: this.supplier.taxIdNum,
+          quantity: orderedQuantity,
+          price: e.product.supplierPrice,
+          itemSerialNumber: e.itemSerialNumber,
+        };
+      });
 
       let order = {
         employeeId: 1,
@@ -94,14 +105,26 @@ export default {
         orderItems,
       };
 
-      console.log(this.$store.getters.getUser);
-      console.log(order);
       api
         .createOrder({ order: order })
-        .then()
+        .then(({ data }) => {
+          if (data.createOrder === true) {
+            console.log('uspesno ste kreirali porudzbenicu');
+            this.$router.push('/orders');
+          } else {
+            console.log('niste uspesno kreirali porudzbenicu');
+          }
+        })
         .catch(e => {
           console.log(e);
         });
+    },
+    changeInputOrder(item) {
+      this.reqItems.forEach(el => {
+        if (item.itemSerialNumber === el.itemSerialNumber) {
+          el.orderedQuantity = item.orderedQuantity;
+        }
+      });
     },
   },
 };

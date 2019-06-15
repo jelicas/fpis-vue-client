@@ -9,6 +9,7 @@ import {
 
 import {
   CREATE_ORDER,
+  GET_ALL_ORDERS,
   GET_LAST_REQUISITION,
   GET_REQUISITION_ITEMS_PER_SUPPLIER,
   GET_SUPPLIERS_FROM_LAST_REQUISITION,
@@ -62,6 +63,11 @@ const api = {
     return apolloClient.mutate({
       mutation: CREATE_ORDER,
       variables: payload,
+    });
+  },
+  getAllOrders: () => {
+    return apolloClient.query({
+      query: GET_ALL_ORDERS,
     });
   },
 };

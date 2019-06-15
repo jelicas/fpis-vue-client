@@ -32,13 +32,13 @@ export default {
   },
   data() {
     return {
-      columns: ['orderId', 'supplierName', 'dateCreated', 'action'],
+      columns: ['id', 'supplier.name', 'dateCreated'],
       options: {
         headings: {
           orderId: 'Broj porudžbenice',
-          supplierName: 'Dobavljač',
+          'supplier.name': 'Dobavljač',
           dateCreated: 'Datum kreiranja',
-          action: 'Akcija',
+          // action: 'Akcija',
         },
         texts: {
           count: 'Prikaz {from} do {to} od {count} records|{count} porudžbenica|Jedna porudžbenica',
@@ -58,6 +58,7 @@ export default {
     };
   },
   created() {
+    console.log('here');
     this.$store.dispatch('order/getAllOrders');
   },
   methods: {

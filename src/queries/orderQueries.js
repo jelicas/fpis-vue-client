@@ -44,3 +44,15 @@ export const CREATE_ORDER = gql`
     createOrder(order: $order)
   }
 `;
+
+export const GET_ALL_ORDERS = gql`
+  query {
+    getAllOrders {
+      id
+      dateCreated
+      supplier {
+        name
+      }
+    }
+  }
+`;
