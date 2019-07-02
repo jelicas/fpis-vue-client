@@ -4,8 +4,16 @@ export default {
   state: {
     suppliers: [],
     supplier: null,
+    errorMessage: 'Došlo je do greške. Pokušajte kasnije!',
+    errorOccurred: false,
   },
   mutations: {
+    setErrorMessage(state, payload) {
+      state.errorMessage = payload;
+    },
+    setErrorOccurred(state, payload) {
+      state.errorOccurred = payload;
+    },
     setSuppliers(state, payload) {
       state.suppliers = payload;
     },
@@ -47,6 +55,7 @@ export default {
         })
         .catch(err => {
           console.error(err);
+          commit('setErrorOccurred', true);
         });
     },
   },

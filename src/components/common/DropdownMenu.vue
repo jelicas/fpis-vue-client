@@ -134,10 +134,19 @@
       </label>
 
       <button
-        class="button is-primary"
+        class="button is-primary filter-button"
         @click="filterSuppliers"
       >Primeni</button>
+      <div class="error-filter">
+        <transition enter-active-class="animated shake">
+          <p
+            class="err-msg"
+            v-if="errorOccurred"
+          >{{ errorMessage }}</p>
+        </transition>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -155,6 +164,8 @@ export default {
       address: '',
       pib: '',
       checkedCheckbox: false,
+      errorMessage: '',
+      errorOccurred: false,
     };
   },
   computed: {
@@ -167,6 +178,10 @@ export default {
   },
   methods: {
     ...mapMutations('supplier', ['setSuppliers']),
+    showError(msg = 'Došlo je do greške. Pokušajte kasnije!') {
+      this.errorOccurred = true;
+      this.errorMessage = msg;
+    },
     openDropdown() {
       this.dropdownActive = !this.dropdownActive;
       if (this.dropdownActive) {
@@ -230,6 +245,7 @@ export default {
         })
         .catch(err => {
           console.log(err);
+          this.showError();
         });
     },
   },
@@ -239,5 +255,13 @@ export default {
 <style lang="scss">
 #dropdown-menu {
   width: 400px;
+}
+
+.filter-button {
+  float: right;
+}
+
+.error-filter {
+  padding-left: 0.7rem;
 }
 </style>

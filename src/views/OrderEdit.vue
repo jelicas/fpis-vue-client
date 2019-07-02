@@ -1,7 +1,14 @@
 <template>
   <div>
-    {{ order.supplier.name }}
-
+    <h1 class="title">{{ order.supplier.name }}</h1>
+    <div class="error">
+      <transition enter-active-class="animated shake">
+        <p
+          class="err-msg"
+          v-if="errorOccurred"
+        >{{ errorMessage }}</p>
+      </transition>
+    </div>
     <v-client-table
       :data="order.orderItems"
       :columns="columns"
@@ -81,9 +88,15 @@ export default {
         },
       },
       deletedItems: [],
+      errorMessage: '',
+      errorOccurred: false,
     };
   },
   methods: {
+    showError(msg = 'Došlo je do greške. Pokušajte kasnije!') {
+      this.errorOccurred = true;
+      this.errorMessage = msg;
+    },
     deleteItem(e) {
       e.orderedQuantity = 0;
       this.deletedItems.push(e);
@@ -131,10 +144,12 @@ export default {
             this.$router.push('/orders');
           } else {
             console.log('niste uspesno kreirali porudzbenicu');
+            this.showError();
           }
         })
         .catch(e => {
           console.log(e);
+          this.showError();
         });
     },
     changeInputOrder(item) {

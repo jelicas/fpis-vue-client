@@ -29,7 +29,7 @@ export default {
 <style lang="scss">
 @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
-// @import url("./assets/css/animate.css");
+@import url('./assets/css/animate.css');
 @import url('https://use.fontawesome.com/releases/v5.6.1/css/all.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css');
 

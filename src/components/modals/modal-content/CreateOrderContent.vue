@@ -28,6 +28,14 @@
         class="button is-primary button--mod"
         @click="createOrder"
       >Kreiraj</button>
+      <div class="error">
+        <transition enter-active-class="animated shake">
+          <p
+            class="err-msg"
+            v-if="errorOccurred"
+          >{{ errorMessage }}</p>
+        </transition>
+      </div>
     </div>
 
   </div>
@@ -42,10 +50,16 @@ export default {
     return {
       suppliers: [],
       selectedSupplier: '',
+      errorMessage: '',
+      errorOccurred: false,
     };
   },
   methods: {
     ...mapMutations('modal', ['closeModal']),
+    showError(msg = 'Došlo je do greške. Pokušajte kasnije!') {
+      this.errorOccurred = true;
+      this.errorMessage = msg;
+    },
     createOrder() {
       if (this.selectedSupplier === '') {
         return;
@@ -78,10 +92,12 @@ export default {
             })
             .catch(err => {
               console.log(err);
+              this.showError();
             });
         })
         .catch(err => {
           console.log(err);
+          this.showError();
         });
     },
   },
@@ -94,6 +110,7 @@ export default {
       })
       .catch(err => {
         console.log(err);
+        this.showError();
       });
   },
 };
@@ -109,5 +126,13 @@ export default {
 }
 .button--mod {
   margin: 0 0.5rem;
+}
+
+.error {
+  padding-top: 0.5em;
+}
+
+.err-msg {
+  color: red;
 }
 </style>

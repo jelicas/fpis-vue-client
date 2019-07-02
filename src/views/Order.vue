@@ -1,7 +1,14 @@
 <template>
   <div>
-    {{ supplier.name }}
-
+    <h1 class="title">{{ supplier.name }}</h1>
+    <div class="error">
+      <transition enter-active-class="animated shake">
+        <p
+          class="err-msg"
+          v-if="errorOccurred"
+        >{{ errorMessage }}</p>
+      </transition>
+    </div>
     <v-client-table
       :data="reqItems"
       :columns="columns"
@@ -78,6 +85,8 @@ export default {
         },
       },
       reqItems: this.requisitionItems,
+      errorMessage: '',
+      errorOccurred: false,
     };
   },
   methods: {
@@ -85,6 +94,10 @@ export default {
       this.reqItems = this.reqItems.filter(el => {
         if (el.itemSerialNumber !== e.itemSerialNumber) return e;
       });
+    },
+    showError(msg = 'Došlo je do greške. Pokušajte kasnije!') {
+      this.errorOccurred = true;
+      this.errorMessage = msg;
     },
     createOrder() {
       console.log(this.reqItems);
@@ -113,10 +126,12 @@ export default {
             this.$router.push('/orders');
           } else {
             console.log('niste uspesno kreirali porudzbenicu');
+            this.showError();
           }
         })
         .catch(e => {
           console.log(e);
+          this.showError();
         });
     },
     changeInputOrder(item) {

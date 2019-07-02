@@ -1,6 +1,14 @@
 <template>
   <div>
-    <h1>Orders</h1>
+    <h1 class="title">Orders</h1>
+    <div class="error">
+      <transition enter-active-class="animated shake">
+        <p
+          class="err-msg"
+          v-if="errorOccurred"
+        >{{ errorMessage }}</p>
+      </transition>
+    </div>
     <button
       class="button is-primary"
       @click="showModal('CreateOrderContent')"
@@ -59,6 +67,8 @@ export default {
           columns: 'Kolone',
         },
       },
+      errorMessage: '',
+      errorOccurred: false,
     };
   },
   created() {
@@ -68,19 +78,29 @@ export default {
   methods: {
     ...mapMutations('modal', ['showModal']),
     ...mapMutations('order', ['setOrder']),
+    showError(msg = 'Došlo je do greške. Pokušajte kasnije!') {
+      this.errorOccurred = true;
+      this.errorMessage = msg;
+    },
     editOrder(e) {
       console.log(e);
       let orderId = e.id;
-      api.getOrder({ orderId: orderId }).then(({ data }) => {
-        console.log(data);
-        this.setOrder(data.getOrder);
-        this.$router.push({
-          name: 'orderEditDetails',
-          params: {
-            orderId: orderId,
-          },
+      api
+        .getOrder({ orderId: orderId })
+        .then(({ data }) => {
+          console.log(data);
+          this.setOrder(data.getOrder);
+          this.$router.push({
+            name: 'orderEditDetails',
+            params: {
+              orderId: orderId,
+            },
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          this.showError();
         });
-      });
     },
     // setModal(row, modalName) {
     //   this.setSupplier(row);
@@ -91,4 +111,7 @@ export default {
 </script>
 
 <style scoped>
+.err-msg {
+  color: red;
+}
 </style>

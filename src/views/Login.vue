@@ -71,6 +71,10 @@ export default {
     };
   },
   methods: {
+    showError(msg = 'Došlo je do greške. Pokušajte kasnije!') {
+      this.errorOccurred = true;
+      this.errorMessage = msg;
+    },
     submitForm() {
       console.log('LOGIN');
       this.$store.dispatch('signinUser', {

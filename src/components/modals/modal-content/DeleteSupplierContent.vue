@@ -6,36 +6,59 @@
       @cancel="closeModal"
       @approve="removeSupplier"
     ></approval-content>
+    <div class="error">
+      <transition enter-active-class="animated shake">
+        <p
+          class="err-msg"
+          v-if="errorOccurred"
+        >{{ errorMessage }}</p>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
-import approvalContent from "@/components/modals/modal-content/modal-content-approval/ApprovalContent.vue";
-import { mapState, mapMutations } from "vuex";
-import api from "@/api/api.js";
+import approvalContent from '@/components/modals/modal-content/modal-content-approval/ApprovalContent.vue';
+import { mapState, mapMutations } from 'vuex';
+import api from '@/api/api.js';
 
 export default {
   components: {
-    approvalContent
+    approvalContent,
+  },
+  data() {
+    return {
+      errorMessage: '',
+      errorOccurred: false,
+    };
   },
   computed: {
-    ...mapState("supplier", ["supplier"])
+    ...mapState('supplier', ['supplier']),
   },
   methods: {
-    ...mapMutations("modal", ["closeModal"]),
-    ...mapMutations("supplier", ["deleteSupplier"]),
+    ...mapMutations('modal', ['closeModal']),
+    ...mapMutations('supplier', ['deleteSupplier']),
+    showError(msg = 'Došlo je do greške. Pokušajte kasnije!') {
+      this.errorOccurred = true;
+      this.errorMessage = msg;
+    },
     removeSupplier() {
       api
         .deleteSupplier({ taxIdNum: this.supplier.taxIdNum })
         .then(({ data }) => {
-          this.deleteSupplier(this.supplier.taxIdNum);
-          this.closeModal();
+          if (data.deleteSupplier === false) {
+            this.showError();
+          } else {
+            this.deleteSupplier(this.supplier.taxIdNum);
+            this.closeModal();
+          }
         })
         .catch(err => {
           console.log(err);
+          this.showError();
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

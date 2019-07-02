@@ -4,7 +4,7 @@
       :supplier="supplier"
       :cities="cities"
     ></supplier-content>
-    <div class="">
+    <div class="buttons">
       <button
         class="button is-danger"
         @click="close"
@@ -13,6 +13,14 @@
         class="button is-primary"
         @click="updateSupplier"
       >Potvrdi</button>
+    </div>
+    <div class="error">
+      <transition enter-active-class="animated shake">
+        <p
+          class="err-msg"
+          v-if="errorOccurred"
+        >{{ errorMessage }}</p>
+      </transition>
     </div>
   </div>
 
@@ -30,6 +38,8 @@ export default {
   data() {
     return {
       cities: null,
+      errorMessage: '',
+      errorOccurred: false,
     };
   },
   computed: {
@@ -45,11 +55,16 @@ export default {
       })
       .catch(err => {
         console.error(err);
+        this.showError();
       });
   },
   methods: {
     ...mapMutations('modal', ['closeModal']),
     ...mapMutations('supplier', ['editSupplier']),
+    showError(msg = 'Došlo je do greške. Pokušajte kasnije!') {
+      this.errorOccurred = true;
+      this.errorMessage = msg;
+    },
     close() {
       this.closeModal();
     },
@@ -66,11 +81,12 @@ export default {
         .then(({ data }) => {
           console.log(data.updateSupplier);
           this.editSupplier(data.updateSupplier);
-          console.log('bla');
+
           this.closeModal();
         })
         .catch(err => {
           console.log(err);
+          this.showError();
         });
     },
   },
