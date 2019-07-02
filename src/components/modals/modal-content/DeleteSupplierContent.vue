@@ -28,8 +28,6 @@ export default {
       api
         .deleteSupplier({ taxIdNum: this.supplier.taxIdNum })
         .then(({ data }) => {
-          console.log("gere");
-          console.log(data);
           this.deleteSupplier(this.supplier.taxIdNum);
           this.closeModal();
         })

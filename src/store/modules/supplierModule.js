@@ -1,11 +1,9 @@
-import { defaultClient as apolloClient } from "@/main";
-
-import { GET_ALL_SUPPLIERS } from "@/queries/supplierQueries";
+import api from '../../api/api';
 
 export default {
   state: {
     suppliers: [],
-    supplier: null
+    supplier: null,
   },
   mutations: {
     setSuppliers(state, payload) {
@@ -29,7 +27,7 @@ export default {
             regNum: payload.regNum,
             address: payload.address,
             city: payload.city,
-            name: payload.name
+            name: payload.name,
           };
           return editedSupplier;
         } else {
@@ -37,27 +35,25 @@ export default {
         }
       });
       state.suppliers = editedSuppliers;
-    }
+    },
   },
   actions: {
     getAllSuppliers: ({ commit }) => {
-      apolloClient
-        .query({
-          query: GET_ALL_SUPPLIERS
-        })
+      api
+        .getAllSuppliers()
         .then(({ data }) => {
           console.log(data.getSuppliers);
-          commit("setSuppliers", data.getSuppliers);
+          commit('setSuppliers', data.getSuppliers);
         })
         .catch(err => {
           console.error(err);
         });
-    }
+    },
   },
   getters: {
     getAllSuppliers(state) {
       return state.suppliers;
-    }
+    },
   },
-  namespaced: true
+  namespaced: true,
 };

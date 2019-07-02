@@ -6,6 +6,7 @@ import Cards from './components/Cards.vue';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Order from './views/Order.vue';
+import OrderEdit from './views/OrderEdit.vue';
 import Orders from './views/Orders.vue';
 import Suppliers from './views/Suppliers.vue';
 
@@ -46,6 +47,12 @@ const router = new Router({
           path: '/order/:orderId',
           name: 'orderDetails',
           component: Order,
+          props: true,
+        },
+        {
+          path: '/order/:orderId',
+          name: 'orderEditDetails',
+          component: OrderEdit,
           props: true,
         },
       ],

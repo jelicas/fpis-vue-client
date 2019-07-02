@@ -4,13 +4,16 @@ import {
   DELETE_SUPPLIER,
   FILTER_SUPPLIERS,
   GET_ALL_CITIES,
+  GET_ALL_SUPPLIERS,
   UPDATE_SUPPLIER,
 } from '@/queries/supplierQueries';
 
 import {
   CREATE_ORDER,
+  EDIT_ORDER,
   GET_ALL_ORDERS,
   GET_LAST_REQUISITION,
+  GET_ORDER,
   GET_REQUISITION_ITEMS_PER_SUPPLIER,
   GET_SUPPLIERS_FROM_LAST_REQUISITION,
 } from '../queries/orderQueries';
@@ -20,6 +23,11 @@ const api = {
   getAllCities: () => {
     return apolloClient.query({
       query: GET_ALL_CITIES,
+    });
+  },
+  getAllSuppliers: () => {
+    return apolloClient.query({
+      query: GET_ALL_SUPPLIERS,
     });
   },
   addSupplier: payload => {
@@ -65,9 +73,21 @@ const api = {
       variables: payload,
     });
   },
+  editOrder: payload => {
+    return apolloClient.mutate({
+      mutation: EDIT_ORDER,
+      variables: payload,
+    });
+  },
   getAllOrders: () => {
     return apolloClient.query({
       query: GET_ALL_ORDERS,
+    });
+  },
+  getOrder: payload => {
+    return apolloClient.query({
+      query: GET_ORDER,
+      variables: payload,
     });
   },
 };

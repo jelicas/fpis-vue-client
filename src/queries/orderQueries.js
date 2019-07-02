@@ -45,6 +45,12 @@ export const CREATE_ORDER = gql`
   }
 `;
 
+export const EDIT_ORDER = gql`
+  mutation($order: Order) {
+    editOrder(order: $order)
+  }
+`;
+
 export const GET_ALL_ORDERS = gql`
   query {
     getAllOrders {
@@ -52,6 +58,36 @@ export const GET_ALL_ORDERS = gql`
       dateCreated
       supplier {
         name
+      }
+    }
+  }
+`;
+
+export const GET_ORDER = gql`
+  query($orderId: Int) {
+    getOrder(orderId: $orderId) {
+      id
+      dateCreated
+      employee {
+        name
+        surname
+      }
+      supplier {
+        taxIdNum
+        name
+      }
+      orderItems {
+        orderId
+        serialNumber
+        requisitionId
+        itemSerialNumber
+        supplierId
+        orderedQuantity
+        totalQuantity
+        product {
+          name
+          supplierPrice
+        }
       }
     }
   }

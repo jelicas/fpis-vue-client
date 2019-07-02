@@ -15,7 +15,10 @@
         slot="action"
         slot-scope="props"
       >
-        <button class="button is-warning">Izmeni</button>
+        <button
+          class="button is-warning"
+          @click="editOrder(props.row)"
+        >Izmeni</button>
         <button class="button is-danger">Obriši</button>
       </div>
     </v-client-table>
@@ -25,6 +28,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
+import api from '@/api/api.js';
 
 export default {
   computed: {
@@ -32,13 +36,13 @@ export default {
   },
   data() {
     return {
-      columns: ['id', 'supplier.name', 'dateCreated'],
+      columns: ['id', 'supplier.name', 'dateCreated', 'action'],
       options: {
         headings: {
           orderId: 'Broj porudžbenice',
           'supplier.name': 'Dobavljač',
           dateCreated: 'Datum kreiranja',
-          // action: 'Akcija',
+          action: 'Akcija',
         },
         texts: {
           count: 'Prikaz {from} do {to} od {count} records|{count} porudžbenica|Jedna porudžbenica',
@@ -64,6 +68,20 @@ export default {
   methods: {
     ...mapMutations('modal', ['showModal']),
     ...mapMutations('order', ['setOrder']),
+    editOrder(e) {
+      console.log(e);
+      let orderId = e.id;
+      api.getOrder({ orderId: orderId }).then(({ data }) => {
+        console.log(data);
+        this.setOrder(data.getOrder);
+        this.$router.push({
+          name: 'orderEditDetails',
+          params: {
+            orderId: orderId,
+          },
+        });
+      });
+    },
     // setModal(row, modalName) {
     //   this.setSupplier(row);
     //   this.showModal(modalName);
