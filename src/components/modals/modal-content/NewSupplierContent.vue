@@ -65,6 +65,17 @@ export default {
       this.errorOccurred = true;
       this.errorMessage = msg;
     },
+    resetFields() {
+      resetSupplier = {
+        taxIdNum: '',
+        regNum: '',
+        name: '',
+        address: '',
+        city: '',
+      };
+
+      this.$store.commit('setSupplier', resetSupplier);
+    },
     createSupplier() {
       console.log(this.supplier);
       const newSupplier = {
@@ -92,5 +103,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
+.buttons {
+  margin-top: 1rem;
+  justify-content: center;
+}
 </style>
